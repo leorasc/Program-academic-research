@@ -117,15 +117,13 @@ def log10(x: int):
 
 class List(list):
     def __init__(self, lst):
-        print("init")
-        print(type(list))
         self.lists = []
         self.len = 0
         for i in range(len(lst)):
-            if type(lst[i]) == type(list):
+            if type(lst[i]) == list:
+                self.lists.append(List(lst[i]))
+            else:
                 self.lists.append(lst[i])
-                self.len += 1
-        print(self.lists)
 
     def __setitem__(self, *arg, value: object):
         print("setitem")
@@ -135,18 +133,9 @@ class List(list):
             self.lists[arg[0]][arg[1:]] = value
 
     def __getitem__(self, *arg):
-        # print(self.lists)
-        print("getitem")
         if len(arg[0]) == 1:
-            print(arg)
-            print(arg[0][0])
-            print(self.lists[arg[0][0]])
             return self.lists[arg[0][0]]
         else:
-            print(str(arg[0]))
-            print(str(arg[0][0]))
-            print(str(arg[0][1:]))
-            print(self.lists[arg[0][0]])
             return self.lists[arg[0][0]][arg[0][1:]]
 
     def __str__(self):
