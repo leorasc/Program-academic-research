@@ -3,6 +3,8 @@ import itertools as it
 
 def bounded_subsets(lst: list, s: float):
     """
+    Returns subsets that their sum is not larger than the given parameter s.
+    They are returnd according to amonut of elements.
     >>> [s for s in zip(range(5), bounded_subsets(range(100), 1000000000000))]
     [(0, ()), (1, (0,)), (2, (1,)), (3, (2,)), (4, (3,))]
     >>> [s for s in bounded_subsets([1,2,3], 4)]
@@ -23,6 +25,8 @@ def bounded_subsets(lst: list, s: float):
 
 def sorted_bounded_subsets(lst: list, s: float):
     """
+    Returns subsets that their sum is not larger than the given parameter s.
+    They are returnd according to their sum.    
     >>> [s for s in zip(range(5), sorted_bounded_subsets(range(100), 1000000000000))]
     [(0, ()), (1, (0,)), (2, (1,)), (3, (0, 1)), (4, (2,))]
     >>> [s for s in sorted_bounded_subsets([1,2,3], 4)]
@@ -33,7 +37,7 @@ def sorted_bounded_subsets(lst: list, s: float):
     yield ()
     if lst is list:
         lst.sort()
-    for i in range(lst[0],min(sum(lst)+1,s+1)):
+    for i in range(lst[0],min(sum(lst)+1,s+1)): # makes sure that the bounded subsets are ordered according to thier sum.
         for l in range(1,len(lst)):
             if i < sum(lst[:l]):
                 break
