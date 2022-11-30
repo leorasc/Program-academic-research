@@ -116,6 +116,13 @@ def log10(x: int):
 
 
 class List(list):
+    """
+    Class of List, allows to apply with one and more indexes to the [] operator, while to list it has to be exactly one intex.
+    >>> print(List([[[1,2,3,33],[4,5,6,66]], [[7,8,9,99],[10,11,12,122]], [[13,14,15,155],[16,17,18,188]], ] )[0,1,3])
+    66
+    >>> print(List([[[1,2,3,33],[4,5,6,66]], [[7,8,9,99],[10,11,12,122]], [[13,14,15,155],[16,17,18,188]], ] )[0])
+    [[1,2,3,33],[4,5,6,66]]
+    """
     def __init__(self, lst):
         self.lists = []
         self.len = 0
@@ -133,37 +140,27 @@ class List(list):
             self.lists[arg[0]][arg[1:]] = value
 
     def __getitem__(self, *arg):
-        if len(arg[0]) == 1:
+        if type(arg[0]) == int:
+            return self.lists[arg[0]]
+        elif len(arg[0]) == 1:
             return self.lists[arg[0][0]]
         else:
             return self.lists[arg[0][0]][arg[0][1:]]
+        
+
 
     def __str__(self):
-        s = ""
+        s = "["
         for i in range(len(self.lists)):
-            s += str(self.lists[i])
-        return s
-
-    def __repr__(self):
-        s = ""
-        for i in range(len(self.lists)):
-            s += str(self.lists[i])
-        return s
+            s += str(self.lists[i]) + ","
+        return s[:-1] + "]"
 
     def __len__(self):
         return self.len
 
-# from typing import Type
-# list = Type(List)
+    
 
 
-mylist = List([[[1,2,3,33],[4,5,6,66]], [[7,8,9,99],[10,11,12,122]], [[13,14,15,155],[16,17,18,188]], ] ) 
-print(mylist[0,1,3])
-# print(mylist[0])
-# [[1,2,3,33],[4,5,6,66]]
-
-
-
-# if __name__ == '__main__':
-#     import doctest
-#     print(doctest.testmod())
+if __name__ == '__main__':
+    import doctest
+    print(doctest.testmod())
